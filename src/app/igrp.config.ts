@@ -44,6 +44,11 @@
 export default {
   types: [],
   actions: [],
-  functions: [],
+  functions: [
+    'functions/license', 'hooks/license',
+    'functions/establishment', 'hooks/establishment',
+    'functions/activity', 'hooks/activity',
+    'functions/classes', 'hooks/classes',
+  ],
   components: []
 };
