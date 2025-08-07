@@ -1,40 +1,64 @@
 
+export interface TimeObject {
+    hour: number;
+    minute: number;
+    second: number;
+    nano: number;
+}
+
 export interface License {
-    uuid: string;
+    idLicenca: string;
     alvara: string;
-    nome: string;
-    tipo: string;
-    localidade: string;
-    gerente: string;
-    validade: string;
-    estadoDesc: string;
+    dataInicioLicenca: string;
+    dataFimLicenca: string;
+    dataRenovacaoLicenca: string;
+    designacao: string;
+    horarioInicioFuncionamento: TimeObject;
+    horarioFimFuncionamento: TimeObject;
+    estadoLicenca: string;
+    estadoLicencaDesc: string;
+    estabelecimento: Establishment;
+    idUtente: string;
+    nomeUtente: string;
+    numeroUtente: string;
 }
 
 export interface Establishment {
-    uuid: string;
-    codigo: string;
+    estabelecimentoId: string;
+    nome: string;
+    gerente: string;
     descricao: string;
-    taxaFixa: string;
-    taxaQuarto: string;
-    categoria: string;
-    vistoria: string;
-    horario: string;
-    tipoAtividade: string;
-    retalho: string;
+    endereco: string;
+    telefone: string;
+    email: string;
+    nif: string;
+    flagVistoria: boolean;
+    licRetalho: boolean;
+    tipoAtividade: Activity;
+    classes: Classe[];
+    estado: string;
+    estadoDesc: string;
 }
 
-export interface Classes {
-    uuid: string;
-    titulo: string;
+export interface Classe {
+    classeId: string;
+    codigo: string;
     descricao: string;
+    estado: string;
+    estadoDesc: string;
+
+    [key: string]: unknown;
 }
 
 export interface Activity {
-    uuid: string;
+    tipoAtividadeId: string;
     nome: string;
+    codigo: string;
     descricao: string;
-    categoria: string;
+    estado: string;
     estadoDesc: string;
+
+    [key: string]: unknown;
 }
 
 export interface PaginatedResponse<T> {

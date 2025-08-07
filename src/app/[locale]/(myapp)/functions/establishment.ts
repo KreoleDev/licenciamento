@@ -12,9 +12,9 @@ export async function getEstablishments(): Promise<PaginatedResponse<Establishme
     return response.data;
 }
 
-export async function createOrUpdateStablishment(establishment: Partial<Establishment>): Promise<Establishment> {
-    if (establishment.uuid) {
-        const response = await apiClient.put<Establishment>(`/api/establishment?uuid=${establishment.uuid}`, establishment);
+export async function createOrUpdateEstablishment(establishment: Partial<Establishment>): Promise<Establishment> {
+    if (establishment.estabelecimentoId) {
+        const response = await apiClient.put<Establishment>(`/api/establishment?uuid=${establishment.estabelecimentoId}`, establishment);
         if (!response.data) throw new Error('Failed to update establishment');
         return response.data;
     } else {

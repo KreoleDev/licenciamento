@@ -1,9 +1,9 @@
 import { apiClient } from "../lib/api-client";
-import { Classes, PaginatedResponse } from "../types/commons";
+import { Classe, PaginatedResponse } from "../types/commons";
 
 
-export async function getClasses(): Promise<PaginatedResponse<Classes>> {
-    const response = await apiClient.get<PaginatedResponse<Classes>>('/api/classes');
+export async function getClasses(): Promise<PaginatedResponse<Classe>> {
+    const response = await apiClient.get<PaginatedResponse<Classe>>('/api/classes');
 
     if (!response.data) {
         throw new Error(response.error ?? 'Unknown error fetching classes');
@@ -12,21 +12,21 @@ export async function getClasses(): Promise<PaginatedResponse<Classes>> {
     return response.data;
 }
 
-export async function createOrUpdateClass(classe: Partial<Classes>): Promise<Classes> {
-    if (classe.uuid) {
-        const response = await apiClient.put<Classes>(`/api/classes?uuid=${classe.uuid}`, classe);
+export async function createOrUpdateClass(classe: Partial<Classe>): Promise<Classe> {
+    if (classe.classeId) {
+        const response = await apiClient.put<Classe>(`/api/classes?uuid=${classe.classeId}`, classe);
         if (!response.data) throw new Error('Failed to update class');
         return response.data;
     } else {
-        const response = await apiClient.post<Classes>('/api/classes', classe);
+        const response = await apiClient.post<Classe>('/api/classes', classe);
         if (!response.data) throw new Error('Failed to create class');
         return response.data;
     }
 }
 
-export async function getClass(uuid: string): Promise<Classes> {
+export async function getClass(uuid: string): Promise<Classe> {
     console.log("getClass this uuid", uuid);
-    const response = await apiClient.get<Classes>(`/api/classes?uuid=${uuid}`);
+    const response = await apiClient.get<Classe>(`/api/classes?uuid=${uuid}`);
     if (!response.data) throw new Error('Class not found');
     return response.data;
 }

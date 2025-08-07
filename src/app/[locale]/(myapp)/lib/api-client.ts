@@ -1,4 +1,4 @@
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T> {
   data?: T;
   error?: string;
   status: number;
@@ -87,7 +87,7 @@ class ApiClient {
   }
 
   // Enhanced fetch with interceptors and retry logic
-  async request<T = any>(url: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
+  async request<T>(url: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
     const fullUrl = this.buildUrl(url);
 
     // Apply request interceptors
@@ -139,23 +139,23 @@ class ApiClient {
   }
 
   // Convenience methods
-  async get<T = any>(url: string, options?: RequestInit): Promise<ApiResponse<T>> {
+  async get<T>(url: string, options?: RequestInit): Promise<ApiResponse<T>> {
     return this.request<T>(url, { ...options, method: 'GET' });
   }
 
-  async post<T = any>(url: string, body?: any, options?: RequestInit): Promise<ApiResponse<T>> {
+  async post<T>(url: string, body?: undefined, options?: RequestInit): Promise<ApiResponse<T>> {
     return this.request<T>(url, { ...options, method: 'POST', body: JSON.stringify(body) });
   }
 
-  async put<T = any>(url: string, body?: any, options?: RequestInit): Promise<ApiResponse<T>> {
+  async put<T>(url: string, body?: undefined, options?: RequestInit): Promise<ApiResponse<T>> {
     return this.request<T>(url, { ...options, method: 'PUT', body: JSON.stringify(body) });
   }
 
-  async delete<T = any>(url: string, options?: RequestInit): Promise<ApiResponse<T>> {
+  async delete<T>(url: string, options?: RequestInit): Promise<ApiResponse<T>> {
     return this.request<T>(url, { ...options, method: 'DELETE' });
   }
 
-  async patch<T = any>(url: string, body?: any, options?: RequestInit): Promise<ApiResponse<T>> {
+  async patch<T>(url: string, body?: undefined, options?: RequestInit): Promise<ApiResponse<T>> {
     return this.request<T>(url, { ...options, method: 'PATCH', body: JSON.stringify(body) });
   }
 }

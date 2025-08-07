@@ -11,17 +11,17 @@ import { cn, useIGRPMenuNavigation, useIGRPToast } from '@igrp/igrp-framework-re
 import { IGRPOptionsProps } from "@igrp/igrp-framework-react-design-system";
 import { IGRPDataTableFacetedFilterFn , IGRPDataTableDateRangeFilterFn } from "@igrp/igrp-framework-react-design-system";
 import { IGRPDataTableHeaderSortToggle, IGRPDataTableHeaderSortDropdown, IGRPDataTableHeaderRowsSelect } from "@igrp/igrp-framework-react-design-system";
+import FormModalActivity from '@/app/[locale]/(igrp)/(generated)/activities/components/formmodalactivity'
 import { 
   IGRPPageHeader,
 	IGRPButton,
 	IGRPInputSearch,
 	IGRPCombobox,
 	IGRPDataTable,
-	IGRPDataTableCellBadge,
 	IGRPDataTableRowAction,
 	IGRPDataTableDropdownMenu,
 	IGRPDataTableDropdownMenuAlert,
-	IGRPDataTableDropdownMenuLink 
+	IGRPDataTableDropdownMenuCustom 
 } from "@igrp/igrp-framework-react-design-system";
 import { useRouter } from "next/navigation"
 import {useActivity} from '@/app/[locale]/(myapp)/hooks/activity'
@@ -32,24 +32,25 @@ export default function PageActivitiesComponent() {
 
   
   type Table1 = {
-    nome: string;
+    codigo: string;
     descricao: string;
-    categoria: string;
-    estadoDesc: string;
-    uuid: string;
+    tipoAtividadeId: string;
 }
 
   const [selectcombobox1Options, setSelectcombobox1Options] = useState<IGRPOptionsProps[]>([]);
   const [contentTabletable1, setContentTabletable1] = useState<Table1[]>([]);
   
   
+const [openActivityModal, setOpenActivityModal] = useState<boolean>(false);
+
+const [currentActivity, setCurrentActivity] = useState<any>(undefined);
+
  const router = useRouter()
  
  const { data, isLoading, error } = useActivity();
  
  useEffect(() => {
    if (!data || isLoading) return;
-   console.log("load data", data)
    setContentTabletable1(data?.content || []);
  }, [isLoading, data]);
 
@@ -75,7 +76,7 @@ showIcon={ true }
 iconName={ `Plus` }
 
   className={ cn() }
-  onClick={ () => {} }
+  onClick={ () => {setOpenActivityModal(!openActivityModal);setCurrentActivity(undefined)} }
   
 >
   Nova Atividade
@@ -128,10 +129,10 @@ iconName={ `CornerDownRight` }
   columns={
     [
         {
-          header: 'Nome'
-,accessorKey: 'nome',
+          header: 'Código'
+,accessorKey: 'codigo',
           cell: ({ row }) => {
-          return row.getValue("nome")
+          return row.getValue("codigo")
           },
           filterFn: IGRPDataTableFacetedFilterFn
         },
@@ -140,39 +141,6 @@ iconName={ `CornerDownRight` }
 ,accessorKey: 'descricao',
           cell: ({ row }) => {
           return row.getValue("descricao")
-          },
-          filterFn: IGRPDataTableFacetedFilterFn
-        },
-        {
-          header: 'Categoria'
-,accessorKey: 'categoria',
-          cell: ({ row }) => {
-          const rowData = row.original;
-
-
-return <IGRPDataTableCellBadge
-  label={ row.original.categoria }
-badgeClassName={ `` }
->
-
-</IGRPDataTableCellBadge>
-          },
-          filterFn: IGRPDataTableFacetedFilterFn
-        },
-        {
-          header: 'Estado'
-,accessorKey: 'estadoDesc',
-          cell: ({ row }) => {
-          const rowData = row.original;
-
-
-return <IGRPDataTableCellBadge
-  label={ row.original.estadoDesc }
-  variant={ `soft` }
-badgeClassName={ `` }
->
-
-</IGRPDataTableCellBadge>
           },
           filterFn: IGRPDataTableFacetedFilterFn
         },
@@ -195,9 +163,9 @@ return (
 }
       },
       {
-        component: IGRPDataTableDropdownMenuLink,
+        component: IGRPDataTableDropdownMenuCustom,
         props: {
-          labelTrigger: `Editar`,icon: `SquarePen`,href: `https://www.igrp.cv/`,          showIcon: true,          action: (e) => {},
+          labelTrigger: `Editar`,          showIcon: true,          action: () => {setOpenActivityModal(!openActivityModal);setCurrentActivity(rowData)},
 }
       },
 ]
@@ -217,6 +185,7 @@ return (
   }
   
   data={ contentTabletable1 }
-/></div></div></div>
+/></div>
+<FormModalActivity  openModal={ openActivityModal } initialData={ currentActivity }  setOpen={ setOpenActivityModal } ></FormModalActivity></div></div>
   );
 }

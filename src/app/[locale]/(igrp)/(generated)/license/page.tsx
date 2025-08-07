@@ -32,18 +32,23 @@ export default function PageLicenseComponent() {
   type Table1 = {
     alvara: string;
     nome: string;
-    tipo: string;
-    localidade: string;
-    gerente: string;
-    validade: string;
+    horario: string;
+    dataInicio: string;
+    dataFim: string;
     estadoDesc: string;
-    uuid: string;
+    idLicenca: string;
 }
 
   const [contentTabletable1, setContentTabletable1] = useState<Table1[]>([]);
   
   
- const router = useRouter()
+function goToNewLicense (): void  | undefined {
+
+  router.push("license/new")
+
+}
+
+  const router = useRouter()
  
  const { data, isLoading, error } = useLicense();
  
@@ -75,7 +80,7 @@ showIcon={ true }
 iconName={ `Plus` }
 
   className={ cn() }
-  onClick={ () => {} }
+  onClick={ goToNewLicense }
   
 >
   Nova Licença
@@ -125,43 +130,26 @@ placeholder={ `Pesquisar licenças...` }
           filterFn: IGRPDataTableFacetedFilterFn
         },
         {
-          header: 'Tipo'
-,accessorKey: 'tipo',
+          header: 'Horário Funcionamento'
+,accessorKey: 'horario',
           cell: ({ row }) => {
-          const rowData = row.original;
-
-
-return <IGRPDataTableCellBadge
-  label={ row.original.tipo }
-  variant={ `outline` }
-badgeClassName={ `` }
->
-
-</IGRPDataTableCellBadge>
+          return row.getValue("horario")
           },
           filterFn: IGRPDataTableFacetedFilterFn
         },
         {
-          header: 'Localidade'
-,accessorKey: 'localidade',
+          header: 'Data Início'
+,accessorKey: 'dataInicio',
           cell: ({ row }) => {
-          return row.getValue("localidade")
+          return row.getValue("dataInicio")
           },
           filterFn: IGRPDataTableFacetedFilterFn
         },
         {
-          header: 'Gerente'
-,accessorKey: 'gerente',
+          header: 'Data Fim'
+,accessorKey: 'dataFim',
           cell: ({ row }) => {
-          return row.getValue("gerente")
-          },
-          filterFn: IGRPDataTableFacetedFilterFn
-        },
-        {
-          header: 'Validade'
-,accessorKey: 'validade',
-          cell: ({ row }) => {
-          return row.getValue("validade")
+          return row.getValue("dataFim")
           },
           filterFn: IGRPDataTableFacetedFilterFn
         },
@@ -203,7 +191,7 @@ return (
       {
         component: IGRPDataTableDropdownMenuLink,
         props: {
-          labelTrigger: `Editar`,icon: `SquarePen`,href: `https://www.igrp.cv/`,          showIcon: true,          action: (e) => {},
+          labelTrigger: `Editar`,icon: `SquarePen`,href: `/license/${row.original.uuid}/edit`,          showIcon: true,          action: (e) => {},
 }
       },
       {
