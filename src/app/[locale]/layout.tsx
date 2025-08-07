@@ -37,7 +37,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
   let session
 
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === "test") {
     try {
       session = await serverSession()
     } catch (error) {
