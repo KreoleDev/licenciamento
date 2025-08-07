@@ -87,13 +87,28 @@ console.error(error)
 }
 
 const router = useRouter()
-const {isLoading, isError, establishmenttatusOptions, activityTypesOptions, classesTypesOptions} = useEstablishmentConfiguration();
+const {isLoading, isError, establishmentStatusOptions, activityTypesOptions, classesTypesOptions} = useEstablishmentConfiguration();
 
 useEffect(() => {
   if(isLoading)return
-  setSelectestadoDescOptions(establishmenttatusOptions || [])
-  setSelecttipoAtividadeIdOptions(activityTypesOptions || [])
-  setSelectclasseIdOptions(classesTypesOptions || [])
+  setSelectestadoDescOptions(
+    (establishmentStatusOptions || []).map(opt => ({
+      ...opt,
+      label: opt.label ?? opt.value // fallback if label is missing
+    }))
+  )
+  setSelecttipoAtividadeIdOptions(
+    (activityTypesOptions || []).map(opt => ({
+      ...opt,
+      label: opt.name ?? opt.value // fallback if label is missing
+    }))
+  )
+  setSelectclasseIdOptions(
+    (classesTypesOptions || []).map(opt => ({
+      ...opt,
+      label: opt.name ?? opt.value // fallback if label is missing
+    }))
+  )
 
 },[isLoading])
 
@@ -216,7 +231,7 @@ showIcon={ false }
 required={ false }
 
 
-placeholder={ 1234567654 }
+placeholder={ undefined }
   className={ cn('col-span-1',) }
   
   
@@ -242,7 +257,7 @@ showIcon={ false }
 required={ false }
 
 
-placeholder={ 2345432343 }
+placeholder={ undefined }
   className={ cn('col-span-1',) }
   
   

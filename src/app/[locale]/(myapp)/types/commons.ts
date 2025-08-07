@@ -34,10 +34,14 @@ export interface Establishment {
     nif: string;
     flagVistoria: boolean;
     licRetalho: boolean;
-    tipoAtividade: Activity;
-    classes: Classe[];
+    tipoAtividade: string;
+    //tipoAtividade: Activity;
+    //classes: Classe[];
+    classes: string;
     estado: string;
     estadoDesc: string;
+
+    [key: string]: unknown;
 }
 
 export interface Classe {

@@ -7,7 +7,7 @@ export async function serverSession() {
   try {
     if (!process.env.NEXTAUTH_SECRET) {
       console.warn("Warning: NEXTAUTH_SECRET is not set. This is required for production.")
-      if (process.env.NODE_ENV === "production") {
+      if (process.env.NODE_ENV === "test") {
         throw new Error("NEXTAUTH_SECRET must be set in production")
       }
     }

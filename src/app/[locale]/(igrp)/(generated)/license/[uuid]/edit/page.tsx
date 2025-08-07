@@ -50,7 +50,8 @@ showIcon={ true }
 iconName={ `Save` }
 
   className={ cn() }
-  onClick={ ()=>setIsSubmitting(!isSubmitting) }
+  onClick={ () => {setIsSubmitting(!isSubmitting)
+} }
   
 >
   Salvar
@@ -58,6 +59,6 @@ iconName={ `Save` }
 </div>
 </IGRPPageHeader>
 
-<FormLicense  isSubmitting={ isSubmitting } intialData={ data } initialData={ data }  onAfterSubmit={ () => {setIsSubmitting(!isSubmitting)} } ></FormLicense></div></div>
+<FormLicense  isSubmitting={ isSubmitting } initialData={ data }  onAfterSubmit={ () => {setIsSubmitting(!isSubmitting)} } ></FormLicense></div></div>
   );
 }

@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
 
 
     } catch (error) {
-        return NextResponse.json({ error: `Failed to fetch licenses: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to fetch licenses: ${error}` }, { status: 500 });
     }
 }
 
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
         });
         return NextResponse.json(license);
     } catch (error) {
-        return NextResponse.json({ error: `Failed to create license: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to create license: ${error}` }, { status: 500 });
     }
 }
 
@@ -55,7 +55,7 @@ export async function PUT(request: NextRequest) {
         });
         return NextResponse.json(license);
     } catch (error) {
-        return NextResponse.json({ error: `Failed to update license: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to update license: ${error}` }, { status: 500 });
     }
 }
 
@@ -69,7 +69,7 @@ export async function DELETE(request: NextRequest) {
         await callGateway(`${ROUTE_BASE_URL}/${uuid}`, { method: 'DELETE' });
         return NextResponse.json({ message: 'License deleted successfully' });
     } catch (error) {
-        return NextResponse.json({ error: `Failed to delete license: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to delete license: ${error}` }, { status: 500 });
     }
 }
 

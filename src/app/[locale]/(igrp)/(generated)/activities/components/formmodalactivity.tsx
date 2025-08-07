@@ -14,8 +14,6 @@ import {
   IGRPModalDialog,
 	IGRPModalDialogContent,
 	IGRPModalDialogHeader,
-	IGRPModalDialogTitle,
-	IGRPModalDialogDescription,
 	IGRPForm,
 	IGRPInputText,
 	IGRPTextarea,
@@ -62,7 +60,7 @@ async function handleCreateOrUpdateActivity (values: z.infer<any>): Promise<void
     title: "Sucsess",
     description: "Activity created successfully",
   })
-setOpen(!openModal)
+setOpen()
 } catch (error: any) {
   igrpToast({
     type: "error",
@@ -95,26 +93,6 @@ useEffect(() => {
   
   
 >
-  <IGRPModalDialogTitle
-  name={ `modalDialogTitle2` }
-  
-
-  className={ cn() }
-  
-  
->
-  Nova Atividade
-</IGRPModalDialogTitle>   v
-  <IGRPModalDialogDescription
-  name={ `modalDialogDescription2` }
-  
-
-  className={ cn() }
-  
-  
->
-  Configure as informações da atividade
-</IGRPModalDialogDescription>
 </IGRPModalDialogHeader>
   <IGRPForm
   schema={ form1 }

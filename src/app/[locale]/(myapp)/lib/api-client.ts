@@ -142,22 +142,34 @@ class ApiClient {
   async get<T>(url: string, options?: RequestInit): Promise<ApiResponse<T>> {
     return this.request<T>(url, { ...options, method: 'GET' });
   }
-
-  async post<T>(url: string, body?: undefined, options?: RequestInit): Promise<ApiResponse<T>> {
-    return this.request<T>(url, { ...options, method: 'POST', body: JSON.stringify(body) });
-  }
-
-  async put<T>(url: string, body?: undefined, options?: RequestInit): Promise<ApiResponse<T>> {
-    return this.request<T>(url, { ...options, method: 'PUT', body: JSON.stringify(body) });
-  }
+async post<T, B = unknown>(url: string, body?: B, options?: RequestInit): Promise<ApiResponse<T>> {
+  return this.request<T>(url, {
+    ...options,
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+async put<T, B = unknown>(url: string, body?: B, options?: RequestInit): Promise<ApiResponse<T>> {
+  return this.request<T>(url, {
+    ...options,
+    method: 'PUT',
+    body: JSON.stringify(body),
+  });
+}
 
   async delete<T>(url: string, options?: RequestInit): Promise<ApiResponse<T>> {
     return this.request<T>(url, { ...options, method: 'DELETE' });
   }
 
-  async patch<T>(url: string, body?: undefined, options?: RequestInit): Promise<ApiResponse<T>> {
-    return this.request<T>(url, { ...options, method: 'PATCH', body: JSON.stringify(body) });
-  }
+  async patch<T, B = unknown>(url: string, body?: B, options?: RequestInit): Promise<ApiResponse<T>> {
+  return this.request<T>(url, {
+    ...options,
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  });
+}
+
+
 }
 
 // Create default API client instance

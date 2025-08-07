@@ -13,8 +13,9 @@ export async function getActivities(): Promise<PaginatedResponse<Activity>> {
 }
 
 export async function createOrUpdateActivity(activity: Partial<Activity>): Promise<Activity> {
-    if (activity.tipoAtividadeId) {
-        const response = await apiClient.put<Activity>(`/api/activity?uuid=${activity.tipoAtividadeId}`, activity);
+    if (activity.uuid) {
+        const response = await apiClient.put<Activity, Partial<Activity>>(`/api/activity?uuid=${activity.uuid}`, activity);
+
         if (!response.data) throw new Error('Failed to update activity');
         return response.data;
     } else {

@@ -20,7 +20,6 @@ import {
 	IGRPDataTable,
 	IGRPDataTableRowAction,
 	IGRPDataTableDropdownMenu,
-	IGRPDataTableDropdownMenuAlert,
 	IGRPDataTableDropdownMenuCustom 
 } from "@igrp/igrp-framework-react-design-system";
 import { useRouter } from "next/navigation"
@@ -156,13 +155,6 @@ return (
   items={
     [
       {
-        component: IGRPDataTableDropdownMenuAlert,
-        props: {
-          modalTitle: `Eliminar Actividade `,labelTrigger: `Eliminar`,icon: `Trash2`,          showIcon: true,showCancel: true,labelCancel: `Cancel`,variantCancel: `secondary`,showConfirm: true,labelConfirm: `Confirm`,variantConfirm: `destructive`,          onClickConfirm: (e) => {},
-          children: <>Deseja eliminar actividade de estabelecimento?</>
-}
-      },
-      {
         component: IGRPDataTableDropdownMenuCustom,
         props: {
           labelTrigger: `Editar`,          showIcon: true,          action: () => {setOpenActivityModal(!openActivityModal);setCurrentActivity(rowData)},
@@ -186,6 +178,6 @@ return (
   
   data={ contentTabletable1 }
 /></div>
-<FormModalActivity  openModal={ openActivityModal } initialData={ currentActivity }  setOpen={ setOpenActivityModal } ></FormModalActivity></div></div>
+<FormModalActivity  openModal={ openActivityModal } initialData={ currentActivity }  setOpen={ () => setOpenActivityModal(false) } ></FormModalActivity></div></div>
   );
 }

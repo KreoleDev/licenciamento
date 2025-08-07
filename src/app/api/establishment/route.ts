@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json(establishments);
 
     } catch (error) {
-        return NextResponse.json({ error: `Failed to fetch establishments: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to fetch establishments: ${error}` }, { status: 500 });
     }
 }
 
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
         });
         return NextResponse.json(establishment);
     } catch (error) {
-        return NextResponse.json({ error: `Failed to create establishment: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to create establishment: ${error}` }, { status: 500 });
     }
 }
 
@@ -53,7 +53,7 @@ export async function PUT(request: NextRequest) {
         });
         return NextResponse.json(establishment);
     } catch (error) {
-        return NextResponse.json({ error: `Failed to update establishment: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to update establishment: ${error}` }, { status: 500 });
     }
 }
 
@@ -67,7 +67,7 @@ export async function DELETE(request: NextRequest) {
         await callGateway(`${ROUTE_BASE_URL}/${uuid}`, { method: 'DELETE' });
         return NextResponse.json({ message: 'Establishment deleted successfully' });
     } catch (error) {
-        return NextResponse.json({ error: `Failed to delete establishment: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to delete establishment: ${error}` }, { status: 500 });
     }
 }
 
