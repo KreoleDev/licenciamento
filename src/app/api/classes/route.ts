@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json(classes);
 
     } catch (error) {
-        return NextResponse.json({ error: `Failed to fetch classes: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to fetch classes: ${error}` }, { status: 500 });
     }
 }
 
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
         });
         return NextResponse.json(classe);
     } catch (error) {
-        return NextResponse.json({ error: `Failed to create class: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to create class: ${error}` }, { status: 500 });
     }
 }
 
@@ -53,7 +53,7 @@ export async function PUT(request: NextRequest) {
         });
         return NextResponse.json(classe);
     } catch (error) {
-        return NextResponse.json({ error: `Failed to update class: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to update class: ${error}` }, { status: 500 });
     }
 }
 
@@ -67,7 +67,7 @@ export async function DELETE(request: NextRequest) {
         await callGateway(`${ROUTE_BASE_URL}/${uuid}`, { method: 'DELETE' });
         return NextResponse.json({ message: 'Classes deleted successfully' });
     } catch (error) {
-        return NextResponse.json({ error: `Failed to delete classes: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to delete classes: ${error}` }, { status: 500 });
     }
 }
 

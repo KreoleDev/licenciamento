@@ -22,31 +22,31 @@ export function useDetailLicense(uuid: string) {
 }
 
 export function useLicenseConfiguration() {
+  const establishmentTypes = useEstablishment();
+  const shiftHoursOptions = getOpeningHours();
+  const licenseStatusOptions = getLicenseStatus();
+
+  let establishmentTypesOptions: Array<{ name: string; value: string }> = [];
+
+  const isLoading = establishmentTypes.isLoading;
+  let isError = establishmentTypes.isError;
+
   try {
-    const establishmentTypes = useEstablishment();
-    const shiftHoursOptions = getOpeningHours();
-    const licenseStatusOptions = getLicenseStatus();
-    
-    const establishmentTypesOptions = convertToNameValue(establishmentTypes.data?.content || [], 'nome', 'estabelecimentoId');
-
-    const isLoading = establishmentTypes.isLoading;
-    const isError = establishmentTypes.isError;
-
-    return {
-      isLoading,
-      isError,
-      shiftHoursOptions,
-      licenseStatusOptions,
-      establishmentTypesOptions,
-    };
+    establishmentTypesOptions = convertToNameValue(
+      establishmentTypes.data?.content ?? [],
+      'nome',
+      'estabelecimentoId'
+    ).map(({ label, value }) => ({ name: label, value }));
   } catch (error) {
-    console.error(error);
-    return {
-      shiftHoursOptions: [],
-      licenseStatusOptions: [],
-      establishmentTypesOptions: [],
-      isLoading: false,
-      isError: true,
-    };
+    console.error('Failed to convert establishment types:', error);
+    isError = true;
   }
+
+  return {
+    isLoading,
+    isError,
+    shiftHoursOptions,
+    licenseStatusOptions,
+    establishmentTypesOptions,
+  };
 }

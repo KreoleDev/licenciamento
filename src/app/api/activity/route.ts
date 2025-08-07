@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
 
 
     } catch (error) {
-        return NextResponse.json({ error: `Failed to fetch activities: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to fetch activities: ${error}` }, { status: 500 });
     }
 }
 
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
         });
         return NextResponse.json(activity);
     } catch (error) {
-        return NextResponse.json({ error: `Failed to create activity: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to create activity: ${error}` }, { status: 500 });
     }
 }
 
@@ -56,7 +56,7 @@ export async function PUT(request: NextRequest) {
         });
         return NextResponse.json(activity);
     } catch (error) {
-        return NextResponse.json({ error: `Failed to update activity: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to update activity: ${error}` }, { status: 500 });
     }
 }
 
@@ -70,7 +70,7 @@ export async function DELETE(request: NextRequest) {
         await callGateway(`${ROUTE_BASE_URL}/${uuid}`, { method: 'DELETE' });
         return NextResponse.json({ message: 'Activity deleted successfully' });
     } catch (error) {
-        return NextResponse.json({ error: `Failed to delete activity: ${error?.message}` }, { status: 500 });
+        return NextResponse.json({ error: `Failed to delete activity: ${error}` }, { status: 500 });
     }
 }
 

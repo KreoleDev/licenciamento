@@ -17,9 +17,7 @@ import {
 	IGRPDataTable,
 	IGRPDataTableCellBadge,
 	IGRPDataTableRowAction,
-	IGRPDataTableDropdownMenu,
-	IGRPDataTableDropdownMenuAlert,
-	IGRPDataTableDropdownMenuLink 
+	IGRPDataTableDropdownMenu 
 } from "@igrp/igrp-framework-react-design-system";
 import { useRouter } from "next/navigation"
 import {useEstablishment} from '@/app/[locale]/(myapp)/hooks/establishment'
@@ -35,8 +33,8 @@ export default function PageEstablishmentComponent() {
     classe: string;
     endereco: string;
     estadoDesc: string;
-    flagVistoria: boolean;
-    licRetalho: boolean;
+    flagVistoria: string;
+    licRetalho: string;
     estabelecimentoId: string;
 }
 
@@ -56,7 +54,18 @@ function goToNewEstablishment (): void  | undefined {
  useEffect(() => {
    if (!data || isLoading) return;
    console.log("load data", data)
-   setContentTabletable1(data?.content || []);
+   setContentTabletable1(
+     (data?.content || []).map((item: any) => ({
+       nome: item.nome ?? '',
+       atividade: "tipoAtividaA",
+       classe: "A, B",
+       endereco: item.endereco ?? '',
+       estadoDesc: item.estadoDesc ?? '',
+       flagVistoria: 'Nao',
+       licRetalho: 'Sim',
+       estabelecimentoId: item.estabelecimentoId ?? '',
+     }))
+   );
  }, [isLoading, data]);
 
 
@@ -206,25 +215,6 @@ return (
   <IGRPDataTableDropdownMenu
   items={
     [
-      {
-        component: IGRPDataTableDropdownMenuAlert,
-        props: {
-          modalTitle: `Eliminar Estabelecimento`,labelTrigger: `Eliminar`,icon: `Trash2`,          showIcon: true,showCancel: true,labelCancel: `Cancel`,variantCancel: `secondary`,showConfirm: true,labelConfirm: `Confirm`,variantConfirm: `destructive`,          onClickConfirm: (e) => {},
-          children: <>Deseja Eliminar Estabelecimento?</>
-}
-      },
-      {
-        component: IGRPDataTableDropdownMenuLink,
-        props: {
-          labelTrigger: `visualizar`,icon: `Eye`,href: `https://www.igrp.cv/`,          showIcon: true,          action: (e) => {},
-}
-      },
-      {
-        component: IGRPDataTableDropdownMenuLink,
-        props: {
-          labelTrigger: `Editar`,icon: `SquarePen`,href: `/establishment/${row.original.uuid}/edit`,          showIcon: true,          action: (e) => {},
-}
-      },
 ]
   }
 >

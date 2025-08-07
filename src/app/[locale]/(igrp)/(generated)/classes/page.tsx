@@ -18,7 +18,6 @@ import {
 	IGRPDataTable,
 	IGRPDataTableRowAction,
 	IGRPDataTableDropdownMenu,
-	IGRPDataTableDropdownMenuAlert,
 	IGRPDataTableDropdownMenuCustom 
 } from "@igrp/igrp-framework-react-design-system";
 import {useClass} from '@/app/[locale]/(myapp)/hooks/classes'
@@ -133,13 +132,6 @@ return (
   items={
     [
       {
-        component: IGRPDataTableDropdownMenuAlert,
-        props: {
-          modalTitle: `Eliminar Classe`,labelTrigger: `Eliminar`,icon: `Trash2`,          showIcon: true,showCancel: true,labelCancel: `Cancel`,variantCancel: `secondary`,showConfirm: true,labelConfirm: `Confirm`,variantConfirm: `destructive`,          onClickConfirm: (e) => {},
-          children: <>Deseja eliminar classe</>
-}
-      },
-      {
         component: IGRPDataTableDropdownMenuCustom,
         props: {
           labelTrigger: `Editar`,icon: `SquarePen`,          showIcon: true,          action: () => {setOpenClassModal(!openClassModal);setCurrentClass(rowData)
@@ -164,7 +156,8 @@ return (
   
   data={ contentTabletable1 }
 /></div>
-<FormModalClass  openModal={ openClassModal } initialData={ currentClass }  setOpen={ setOpenClassModal
+<FormModalClass  openModal={ openClassModal } initialData={ currentClass }  setOpen={ 
+() => setOpenClassModal(false)
  } ></FormModalClass></div></div>
   );
 }

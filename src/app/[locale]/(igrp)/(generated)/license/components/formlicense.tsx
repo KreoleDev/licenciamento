@@ -94,9 +94,12 @@ useEffect(() => {
   if(isLoading)return
   setSelecthorarioOptions(shiftHoursOptions || [])
   setSelectestadoLicencaOptions(licenseStatusOptions|| [])
-  setSelectidEstabelecimentoOptions(establishmentTypesOptions || [])
-
-
+  setSelectidEstabelecimentoOptions(
+    (establishmentTypesOptions || []).map(opt => ({
+      label: opt.name,
+      value: opt.value
+    }))
+  );
 
 },[isLoading])
 

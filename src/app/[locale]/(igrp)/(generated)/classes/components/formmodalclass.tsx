@@ -14,8 +14,6 @@ import {
   IGRPModalDialog,
 	IGRPModalDialogContent,
 	IGRPModalDialogHeader,
-	IGRPModalDialogTitle,
-	IGRPModalDialogDescription,
 	IGRPForm,
 	IGRPInputText,
 	IGRPTextarea,
@@ -54,7 +52,7 @@ async function handleCreateUpdateClass (values: z.infer<any>): Promise<void  | u
     title: "Sucsess",
     description: "Class created successfully",
   })
-  setOpen(!openModal)
+  setOpen()
 } catch (error: any) {
   igrpToast({
     type: "error",
@@ -87,26 +85,6 @@ useEffect(() => {
   
   
 >
-  <IGRPModalDialogTitle
-  name={ `modalDialogTitle2` }
-  
-
-  className={ cn() }
-  
-  
->
-  Nova Classe
-</IGRPModalDialogTitle>
-  <IGRPModalDialogDescription
-  name={ `modalDialogDescription2` }
-  
-
-  className={ cn() }
-  
-  
->
-  Configure as informações da classe de estabelecimento
-</IGRPModalDialogDescription>
 </IGRPModalDialogHeader>
   <IGRPForm
   schema={ form1 }

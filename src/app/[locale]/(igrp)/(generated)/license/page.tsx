@@ -17,9 +17,7 @@ import {
 	IGRPDataTable,
 	IGRPDataTableCellBadge,
 	IGRPDataTableRowAction,
-	IGRPDataTableDropdownMenu,
-	IGRPDataTableDropdownMenuAlert,
-	IGRPDataTableDropdownMenuLink 
+	IGRPDataTableDropdownMenu 
 } from "@igrp/igrp-framework-react-design-system";
 import { useRouter } from "next/navigation"
 import {useLicense} from '@/app/[locale]/(myapp)/hooks/license'
@@ -52,10 +50,20 @@ function goToNewLicense (): void  | undefined {
  
  const { data, isLoading, error } = useLicense();
  
- useEffect(() => {
+useEffect(() => {
    if (!data || isLoading) return;
    console.log("load data", data)
-   setContentTabletable1(data?.content || []);
+   setContentTabletable1(
+     (data?.content || []).map((license: any) => ({
+       alvara: license.alvara ?? '',
+       nome: license.nome ?? '',
+       horario: license.horario ?? '',
+       dataInicio: license.dataInicio ?? '',
+       dataFim: license.dataFim ?? '',
+       estadoDesc: license.estadoDesc ?? '',
+       idLicenca: license.idLicenca ?? '',
+     }))
+   );
  }, [isLoading, data]);
 
 
@@ -181,25 +189,6 @@ return (
   <IGRPDataTableDropdownMenu
   items={
     [
-      {
-        component: IGRPDataTableDropdownMenuAlert,
-        props: {
-          modalTitle: `Eliminar Licença`,labelTrigger: `Eliminar`,icon: `Trash2`,          showIcon: true,showCancel: true,labelCancel: `Cancel`,variantCancel: `secondary`,showConfirm: true,labelConfirm: `Confirm`,variantConfirm: `destructive`,          onClickConfirm: (e) => {},
-          children: <>Deseja eliminar Licença</>
-}
-      },
-      {
-        component: IGRPDataTableDropdownMenuLink,
-        props: {
-          labelTrigger: `Editar`,icon: `SquarePen`,href: `/license/${row.original.uuid}/edit`,          showIcon: true,          action: (e) => {},
-}
-      },
-      {
-        component: IGRPDataTableDropdownMenuLink,
-        props: {
-          labelTrigger: `Visualizar`,icon: `Eye`,href: `https://www.igrp.cv/`,          showIcon: true,          action: (e) => {},
-}
-      },
 ]
   }
 >
