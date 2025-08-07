@@ -10,7 +10,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@igrp/igrp-framework-react-design-system": "latest",
+    "@igrp/igrp-framework-react-design-system": "0.0.0-alpha.219",
     "@igrp/igrp-ui-next-design-system": "latest",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-collapsible": "^1.1.11",

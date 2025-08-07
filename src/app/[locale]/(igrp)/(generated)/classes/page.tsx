@@ -10,6 +10,7 @@ import { use, useState, useEffect, useRef } from 'react';
 import { cn, useIGRPMenuNavigation, useIGRPToast } from '@igrp/igrp-framework-react-design-system';
 import { IGRPDataTableFacetedFilterFn , IGRPDataTableDateRangeFilterFn } from "@igrp/igrp-framework-react-design-system";
 import { IGRPDataTableHeaderSortToggle, IGRPDataTableHeaderSortDropdown, IGRPDataTableHeaderRowsSelect } from "@igrp/igrp-framework-react-design-system";
+import FormModalClass from '@/app/[locale]/(igrp)/(generated)/classes/components/formmodalclass'
 import { 
   IGRPPageHeader,
 	IGRPButton,
@@ -18,7 +19,7 @@ import {
 	IGRPDataTableRowAction,
 	IGRPDataTableDropdownMenu,
 	IGRPDataTableDropdownMenuAlert,
-	IGRPDataTableDropdownMenuLink 
+	IGRPDataTableDropdownMenuCustom 
 } from "@igrp/igrp-framework-react-design-system";
 import {useClass} from '@/app/[locale]/(myapp)/hooks/classes'
 
@@ -28,14 +29,18 @@ export default function PageClassesComponent() {
 
   
   type Table1 = {
-    titulo: string;
+    codigo: string;
     descricao: string;
-    uuid: string;
+    classeId: string;
 }
 
   const [contentTabletable1, setContentTabletable1] = useState<Table1[]>([]);
   
   
+const [openClassModal, setOpenClassModal] = useState<boolean>(false);
+
+const [currentClass, setCurrentClass] = useState<any>(undefined);
+
 
  const { data, isLoading, error } = useClass();
  
@@ -66,7 +71,8 @@ showIcon={ true }
 iconName={ `Plus` }
 
   className={ cn() }
-  onClick={ () => {} }
+  onClick={ () => {setOpenClassModal(!openClassModal); setCurrentClass(undefined)
+} }
   
 >
   Nova Classe
@@ -101,9 +107,9 @@ placeholder={ `Pesquisar classes...` }
     [
         {
           header: 'Classe'
-,accessorKey: 'titulo',
+,accessorKey: 'codigo',
           cell: ({ row }) => {
-          return row.getValue("titulo")
+          return row.getValue("codigo")
           },
           filterFn: IGRPDataTableFacetedFilterFn
         },
@@ -134,9 +140,10 @@ return (
 }
       },
       {
-        component: IGRPDataTableDropdownMenuLink,
+        component: IGRPDataTableDropdownMenuCustom,
         props: {
-          labelTrigger: `Editar`,icon: `SquarePen`,href: `https://www.igrp.cv/`,          showIcon: true,          action: (e) => {},
+          labelTrigger: `Editar`,icon: `SquarePen`,          showIcon: true,          action: () => {setOpenClassModal(!openClassModal);setCurrentClass(rowData)
+},
 }
       },
 ]
@@ -156,6 +163,8 @@ return (
   }
   
   data={ contentTabletable1 }
-/></div></div></div>
+/></div>
+<FormModalClass  openModal={ openClassModal } initialData={ currentClass }  setOpen={ setOpenClassModal
+ } ></FormModalClass></div></div>
   );
 }

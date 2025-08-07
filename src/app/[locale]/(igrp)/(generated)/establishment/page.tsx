@@ -19,7 +19,7 @@ import {
 	IGRPDataTableRowAction,
 	IGRPDataTableDropdownMenu,
 	IGRPDataTableDropdownMenuAlert,
-	IGRPDataTableDropdownMenuCustom 
+	IGRPDataTableDropdownMenuLink 
 } from "@igrp/igrp-framework-react-design-system";
 import { useRouter } from "next/navigation"
 import {useEstablishment} from '@/app/[locale]/(myapp)/hooks/establishment'
@@ -30,21 +30,25 @@ export default function PageEstablishmentComponent() {
 
   
   type Table1 = {
-    codigo: string;
-    descricao: string;
-    tipoAtividade: string;
-    taxaFixa: string;
-    taxaQuarto: string;
-    categoria: string;
-    vistoria: string;
-    retalho: string;
-    horario: string;
-    uuid: string;
+    nome: string;
+    atividade: string;
+    classe: string;
+    endereco: string;
+    estadoDesc: string;
+    flagVistoria: boolean;
+    licRetalho: boolean;
+    estabelecimentoId: string;
 }
 
   const [contentTabletable1, setContentTabletable1] = useState<Table1[]>([]);
   
   
+function goToNewEstablishment (): void  | undefined {
+
+  router.push("establishment/new")
+
+}
+
  const router = useRouter()
  
  const { data, isLoading, error } = useEstablishment();
@@ -77,7 +81,7 @@ showIcon={ true }
 iconName={ `Plus` }
 
   className={ cn() }
-  onClick={ () => {} }
+  onClick={ goToNewEstablishment }
   
 >
   Novo Tipo
@@ -112,54 +116,46 @@ placeholder={ `Pesquisar tipos...` }
   columns={
     [
         {
-          header: 'Código'
-,accessorKey: 'codigo',
+          header: 'Nome'
+,accessorKey: 'nome',
           cell: ({ row }) => {
-          return row.getValue("codigo")
+          return row.getValue("nome")
           },
           filterFn: IGRPDataTableFacetedFilterFn
         },
         {
-          header: 'Descrição'
-,accessorKey: 'descricao',
+          header: 'Atividade'
+,accessorKey: 'atividade',
           cell: ({ row }) => {
-          return row.getValue("descricao")
+          return row.getValue("atividade")
           },
           filterFn: IGRPDataTableFacetedFilterFn
         },
         {
-          header: 'Tipo Atividade'
-,accessorKey: 'tipoAtividade',
+          header: 'Classe'
+,accessorKey: 'classe',
           cell: ({ row }) => {
-          return row.getValue("tipoAtividade")
+          return row.getValue("classe")
           },
           filterFn: IGRPDataTableFacetedFilterFn
         },
         {
-          header: 'Taxa Fixa'
-,accessorKey: 'taxaFixa',
+          header: 'Endereço'
+,accessorKey: 'endereco',
           cell: ({ row }) => {
-          return row.getValue("taxaFixa")
+          return row.getValue("endereco")
           },
           filterFn: IGRPDataTableFacetedFilterFn
         },
         {
-          header: 'Taxa/Quarto'
-,accessorKey: 'taxaQuarto',
-          cell: ({ row }) => {
-          return row.getValue("taxaQuarto")
-          },
-          filterFn: IGRPDataTableFacetedFilterFn
-        },
-        {
-          header: 'Categoria'
-,accessorKey: 'categoria',
+          header: 'Estado'
+,accessorKey: 'estadoDesc',
           cell: ({ row }) => {
           const rowData = row.original;
 
 
 return <IGRPDataTableCellBadge
-  label={ row.original.categoria }
+  label={ row.original.estadoDesc }
 badgeClassName={ `` }
 >
 
@@ -169,13 +165,13 @@ badgeClassName={ `` }
         },
         {
           header: 'Vistoria'
-,accessorKey: 'vistoria',
+,accessorKey: 'flagVistoria',
           cell: ({ row }) => {
           const rowData = row.original;
 
 
 return <IGRPDataTableCellBadge
-  label={ row.original.vistoria }
+  label={ row.original.flagVistoria }
 badgeClassName={ `` }
 >
 
@@ -185,13 +181,13 @@ badgeClassName={ `` }
         },
         {
           header: 'Retalho'
-,accessorKey: 'retalho',
+,accessorKey: 'licRetalho',
           cell: ({ row }) => {
           const rowData = row.original;
 
 
 return <IGRPDataTableCellBadge
-  label={ row.original.retalho }
+  label={ row.original.licRetalho }
 badgeClassName={ `` }
 >
 
@@ -200,15 +196,7 @@ badgeClassName={ `` }
           filterFn: IGRPDataTableFacetedFilterFn
         },
         {
-          header: 'Horário'
-,accessorKey: 'horario',
-          cell: ({ row }) => {
-          return row.getValue("horario")
-          },
-          filterFn: IGRPDataTableFacetedFilterFn
-        },
-        {
-          header: 'Actions Column'
+          header: 'Ações'
 ,accessorKey: 'tableActionListCell1',
           enableHiding: false,cell: ({ row }) => {
           const rowData = row.original;
@@ -226,9 +214,15 @@ return (
 }
       },
       {
-        component: IGRPDataTableDropdownMenuCustom,
+        component: IGRPDataTableDropdownMenuLink,
         props: {
-          labelTrigger: `Editar`,icon: `SquarePen`,          showIcon: true,          action: (e) => {},
+          labelTrigger: `visualizar`,icon: `Eye`,href: `https://www.igrp.cv/`,          showIcon: true,          action: (e) => {},
+}
+      },
+      {
+        component: IGRPDataTableDropdownMenuLink,
+        props: {
+          labelTrigger: `Editar`,icon: `SquarePen`,href: `/establishment/${row.original.uuid}/edit`,          showIcon: true,          action: (e) => {},
 }
       },
 ]

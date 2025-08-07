@@ -13,8 +13,8 @@ export async function getLicenses(): Promise<PaginatedResponse<License>> {
 }
 
 export async function createOrUpdateLicense(license: Partial<License>): Promise<License> {
-    if (license.uuid) {
-        const response = await apiClient.put<License>(`/api/license?uuid=${license.uuid}`, license);
+    if (license.idLicenca) {
+        const response = await apiClient.put<License>(`/api/license?uuid=${license.idLicenca}`, license);
         if (!response.data) throw new Error('Failed to update license');
         return response.data;
     } else {

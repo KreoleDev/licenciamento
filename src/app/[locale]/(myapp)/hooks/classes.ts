@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { Classes, PaginatedResponse } from "../types/commons";
+import { Classe, PaginatedResponse } from "../types/commons";
 import { getClass, getClasses } from "../functions/classes";
 
 
 export const useClass = () => {
-    return useQuery<PaginatedResponse<Classes>>({
+    return useQuery<PaginatedResponse<Classe>>({
         queryKey: ['class'],
         queryFn: () => getClasses()
     });
