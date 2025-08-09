@@ -1,5 +1,5 @@
-import { callGateway } from "@/app/[locale]/(myapp)/lib/use-server";
-import { License } from "@/app/[locale]/(myapp)/types/commons";
+import { callGateway } from "@/app/(myapp)/lib/use-server";
+import { License } from "@/app/(myapp)/types/commons";
 import { NextRequest, NextResponse } from "next/server";
 
 const API_GATEWAY = process.env.API_GATEWAY || 'http://localhost:8083';
